@@ -1,0 +1,54 @@
+{
+  "name": "blog_api",
+  "version": "1.0.0",
+  "description": "Blog API for the dev by Abduljeleel <abduljeleelng@gmail.com>",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test:db": "npx cross-env NODE_ENV=test npx sequelize-cli db:create",
+    "test": "cross-env NODE_ENV=test mocha ./_test/*",
+    "pretest": "cross-env NODE_ENV=test npm run db:reset",
+    "db:reset": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all --seeders-path ./src/seeders/test",
+    "db:create:test": "cross-env NODE_ENV=test npx sequelize-cli db:create"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github/abduljeleelng/blog_api"
+  },
+  "keywords": [
+    "Nodejs",
+    "ORM",
+    "Squelize",
+    "Express",
+    "Mysql"
+  ],
+  "author": "Abduljeleel <abduljeleelng@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "@knuckleswtf/scribe-express": "^2.0.0",
+    "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
+    "crypto": "^1.0.1",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-jwt": "^6.1.0",
+    "express-validator": "^5.3.1",
+    "jsonwebtoken": "^8.5.1",
+    "mysql2": "^2.3.0",
+    "nodemailer": "^6.6.3",
+    "pg": "^8.7.1",
+    "sequelize": "^6.6.5",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "mocha": "^9.1.1",
+    "nodemon": "^2.0.12",
+    "sequelize-cli": "^6.2.0",
+    "supertest": "^6.1.6"
+  }
+}
