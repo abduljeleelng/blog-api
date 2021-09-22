@@ -9,7 +9,7 @@
     "docs": "node swagger.js",
     "db:create" :"npx sequelize-cli db:create",
     "db:drop" :"npx sequelize-cli db:drop",
-    "db:migrate":"npx sequelize db:migrate",
+    "db:migrate":"npx sequelize-cli db:migrate",
     "test:db": "npx cross-env NODE_ENV=test npx sequelize-cli db:create",
     "test": "cross-env NODE_ENV=test mocha ./_test/*",
     "pretest": "cross-env NODE_ENV=test npm run db:reset",
