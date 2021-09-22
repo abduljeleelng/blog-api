@@ -49,6 +49,7 @@
     "mocha": "^9.1.1",
     "nodemon": "^2.0.12",
     "sequelize-cli": "^6.2.0",
-    "supertest": "^6.1.6"
+    "supertest": "^6.1.6",
+    "swagger-autogen": "^2.11.2"
   }
 }
