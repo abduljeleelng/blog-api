@@ -11,10 +11,10 @@ exports.create= async (req, res)=>{
         if(post){
             return res.status(200).json({message:"user successfully created", data:post})
         }else{
-            return res.status(401).json({error:"error in creating data"})
+            return res.status(400).json({error:"error in creating data"})
         }
     } catch (error) {
-        return res.status(402).json({error:"error in creating data", err:error})
+        return res.status(503).json({error:"error in creating data", err:error})
     }
 }
 
@@ -27,10 +27,10 @@ exports.byId= async (req, res, next, id)=>{
             req.post = post
             next()
         }else{
-            return res.status(401).json({error:"invalid post id"})
+            return res.status(400).json({error:"invalid post id"})
         }
     } catch (error) {
-        return res.status(402).json({error:"error in fetcing post", err:error, errorMessage:error.errors[0].message})  
+        return res.status(503).json({error:"error in fetcing post", err:error, errorMessage:error.errors[0].message})  
     }
 }
 
@@ -38,7 +38,7 @@ exports.single = async (req, res)=>{
     try {
         return res.status(200).json({message:"post successfully fetched", data:req.post})
     } catch (error) {
-        return res.status(402).json({error:"error in creating data", err:error, errorMessage:error.errors[0].message})  
+        return res.status(503).json({error:"error in creating data", err:error, errorMessage:error.errors[0].message})  
     }
 }
 
@@ -53,10 +53,10 @@ exports.all = async (req, res)=>{
         if(Array.isArray(post) && post.length){
             return res.status(200).json({message:"post successfully fetched", data:post})
         }else{
-            return res.status(401).json({error:"error in fetching data"})
+            return res.status(400).json({error:"error in fetching data"})
         }
     } catch (error) {
-        return res.status(402).json({error:"error in fetching posts", err:error, /*errorMessage:error.errors[0].message*/})  
+        return res.status(503).json({error:"error in fetching posts", err:error, /*errorMessage:error.errors[0].message*/})  
     }
 }
 
@@ -72,10 +72,10 @@ exports.page = async (req, res)=>{
         if(Array.isArray(post) && post.length){
             return res.status(200).json({message:"post successfully fetched", data:post})
         }else{
-            return res.status(401).json({error:"error in fetching data"})
+            return res.status(400).json({error:"error in fetching data"})
         }
     } catch (error) {
-        return res.status(402).json({error:"error in fetching posts", err:error, /*errorMessage:error.errors[0].message*/})  
+        return res.status(503).json({error:"error in fetching posts", err:error, /*errorMessage:error.errors[0].message*/})  
     }
 }
 
@@ -85,10 +85,10 @@ exports.delete = async (req, res)=>{
         if(post){
             return res.status(200).json({message:"user successfully deleted post"})
         }else{
-            return res.status(401).json({error:"error in creating data"})
+            return res.status(400).json({error:"error in creating data"})
         } 
     } catch (error) {
-        return res.status(402).json({error:"error in deleting data", err:error})  
+        return res.status(503).json({error:"error in deleting data", err:error})  
     }
 }
 
@@ -98,10 +98,10 @@ exports.update = async (req, res)=>{
         if(post){
             return res.status(200).json({message:"user successfully updated a post",})
         }else{
-            return res.status(401).json({error:"error in updating post"})
+            return res.status(400).json({error:"error in updating post"})
         }
     } catch (error) {
-        return res.status(402).json({error:"error in updating post", err:error, errorMessage:error.errors[0].message})  
+        return res.status(503).json({error:"error in updating post", err:error, errorMessage:error.errors[0].message})  
     }
 }
 
@@ -112,10 +112,10 @@ exports.comment = async (req, res)=>{
         if(com){
             return res.status(200).json({message:"user successfully comment on a post",data:com})
         }else{
-            return res.status(401).json({error:"error in comment post"})
+            return res.status(400).json({error:"error in comment post"})
         }
     } catch (error) {
-        return res.status(402).json({error:"error in comment on post", err:error,})
+        return res.status(503).json({error:"error in comment on post", err:error,})
     }
 }
 
@@ -128,10 +128,10 @@ exports.commentById = async (req, res, next, id)=>{
             req.comment = com
             next()
         }else{
-            return res.status(401).json({error:"error in get comment"})
+            return res.status(400).json({error:"error in get comment"})
         }
     } catch (error) {
-        return res.status(402).json({error:"error in comment", err:error,})
+        return res.status(503).json({error:"error in comment", err:error,})
     }
 }
 
@@ -139,7 +139,7 @@ exports.singleComment = async (req, res)=>{
     try {
         return res.status(200).json({message:"comment successfully fetched", data:req.comment})
     } catch (error) {
-        return res.status(402).json({error:"error in fetching data", err:error, errorMessage:error.errors[0].message})  
+        return res.status(503).json({error:"error in fetching data", err:error, errorMessage:error.errors[0].message})  
     }
 }
 
@@ -149,10 +149,10 @@ exports.deleteComment = async (req, res)=>{
         if(del){
             return res.status(200).json({message:"user successfully deleted comment"})
         }else{
-            return res.status(401).json({error:"error in deleting data"})
+            return res.status(400).json({error:"error in deleting data"})
         }    
     } catch (error) {
-        return res.status(402).json({error:"error in creating data", err:error})  
+        return res.status(503).json({error:"error in creating data", err:error})  
     }
 }
 
@@ -162,10 +162,10 @@ exports.updateComment = async (req, res)=>{
         if(com){
             return res.status(200).json({message:"user successfully updated a comment",})
         }else{
-            return res.status(401).json({error:"error in updating comment"})
+            return res.status(400).json({error:"error in updating comment"})
         }
     } catch (error) {
-        return res.status(402).json({error:"error in creating data", err:error})  
+        return res.status(503).json({error:"error in creating data", err:error})  
     }
 }
 

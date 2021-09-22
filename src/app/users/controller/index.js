@@ -12,10 +12,10 @@ exports.create= async (req, res)=>{
         if(user){
             return res.status(200).json({message:"user successfully created", data:user})
         }else{
-            return res.status(401).json({error:"error in creating data"})
+            return res.status(400).json({error:"error in creating data"})
         }
     } catch (error) {
-        return res.status(402).json({error:"error in creating data", err:error})
+        return res.status(500).json({error:"error in creating data", err:error})
     }
 }
 
@@ -29,10 +29,10 @@ exports.byId= async (req, res, next, id)=>{
             req.user = user
             next()
         }else{
-            return res.status(401).json({error:"invalid user !!"})
+            return res.status(404).json({error:"invalid user !!"})
         }
     } catch (error) {
-        return res.status(402).json({error:"error in fetching data", err:error})  
+        return res.status(500).json({error:"error in fetching data", err:error})  
     }
 }
 
@@ -40,7 +40,7 @@ exports.single = async (req, res)=>{
     try {
         return res.status(200).json({message:"user successfully fetched", data:req.user})
     } catch (error) {
-        return res.status(402).json({error:"error in fetching data", err:error})  
+        return res.status(503).json({error:"error in fetching data", err:error})  
     }
 }
 
@@ -50,10 +50,10 @@ exports.all = async (req, res)=>{
         if(Array.isArray(user) && user.length){
             return res.status(200).json({message:"user successfully fetched", data:user})
         }else{
-            return res.status(401).json({error:"error in fetching  data"})
+            return res.status(400).json({error:"error in fetching  data"})
         }
     } catch (error) {
-        return res.status(402).json({error:"error in fetching data", err:error, /*errorMessage:error.errors[0].message*/})  
+        return res.status(503).json({error:"error in fetching data", err:error, /*errorMessage:error.errors[0].message*/})  
     }
 }
 
@@ -63,10 +63,10 @@ exports.delete = async (req, res)=>{
         if(del){
             return res.status(200).json({message:"user successfully deleted", data:req.user})
         }else{
-            return res.status(401).json({error:"error in deleting user"})
+            return res.status(400).json({error:"error in deleting user"})
         } 
     } catch (error) {
-        return res.status(402).json({error:"error in creating data", err:error})  
+        return res.status(503).json({error:"error in creating data", err:error})  
     }
 }
 
@@ -76,10 +76,10 @@ exports.update = async (req, res)=>{
         if(updated){
             return res.status(200).json({message:"user successfully updated"})
         }else{
-            return res.status(401).json({error:"error in updating the user"})
+            return res.status(400).json({error:"error in updating the user"})
         }
     } catch (error) {
-        return res.status(402).json({error:"error in updating", err:error})  
+        return res.status(503).json({error:"error in updating", err:error})  
     }
 }
 
@@ -92,46 +92,45 @@ exports.signIn = async (req, res)=>{
         }
         const isValid = await models.User.validatePassword(password, user.password)
         if(!isValid){
-            return res.status(400).json({error:"invalid Password"})
+            return res.status(406).json({error:"invalid Password"})
         }
         const token = jwt.sign(
             { id: user.id, role:"", user:user },
             process.env.JWT_SECRET
         );
-
         user.password=undefined;
         return res.status(200).json({message:"success", token, data:user})
     } catch (error) {
-        return res.status(402).json({error:"error in signin user", err:error})  
+        return res.status(503).json({error:"error in signin user", err:error})  
     }
 }
 
 exports.forgetPassword = async (req, res)=>{
     try {
-        const {password, email} = req.body;
+        const {email} = req.body;
         const user = await models.User.findByLogin(email);
         if(user){
             //generate the forget token, send email to the user to reset the password
             return res.status(200).json({message:"request successfully process", data:user})
         }else{
-            return res.status(401).json({error:"error in p[rocess the request"})
+            return res.status(400).json({error:"error in p[rocess the request"})
         } 
     } catch (error) {
-        return res.status(402).json({error:"error in processing the request", err:error, })  
+        return res.status(503).json({error:"error in processing the request", err:error, })  
     }
 }
 
 exports.resetpassword = async (req, res)=>{
     try {
-        const {password, email} = req.body;
+        const {password, resetToken, email} = req.body;
         const user = await models.User.findByLogin(email);
         if(user){
             //update the DB with new passsword, send email notification to the user
             return res.status(200).json({message:"password sucessfully reset", data:user})
         }else{
-            return res.status(401).json({error:"error in processing data"})
+            return res.status(400).json({error:"error in processing data"})
         }
     } catch (error) {
-        return res.status(402).json({error:"error in ", err:error})  
+        return res.status(503).json({error:"error in ", err:error})  
     }
 }
