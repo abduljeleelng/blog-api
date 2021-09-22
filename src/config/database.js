@@ -31,9 +31,7 @@ module.exports = {
     port: process.env.DB_PROD_PORT,
     dialect: process.env.DB_PROD_DIALECT,
     dialectOptions: {
-      bigNumberStrings: true,
-      ssl: {
-      }
+      bigNumberStrings: true
     }
   }
 };
