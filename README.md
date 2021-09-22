@@ -71,6 +71,18 @@ npm start
 ## Documentation
 [Documentation](https://abduljeleelng-blog-api.herokuapp.com/)
 
+## Todo 
+> acount activation
+
+* Auto disable account, until account is activated 
+* send activation code to the user email to activate account 
+
+> Forget Password
+* send the reset token to the user email
+
+> Reset Passsword
+* reset password via the token send to the email
+
 
 ## Contact Me
 [Abduljeleel Yusuff](mailto:abduljeleelng@gmail.com) <br />
